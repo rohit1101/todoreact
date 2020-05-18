@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+.App ul li {
+  list-style: none;
+  margin: 1rem 0;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +40,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+i {
+  cursor: pointer;
 }
