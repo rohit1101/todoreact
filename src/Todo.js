@@ -6,7 +6,6 @@ export class Todo extends React.Component {
   state = {
     todo: "",
     todo_arr: [],
-    edit: false,
   };
 
   handleChange = (e) => {
@@ -14,17 +13,17 @@ export class Todo extends React.Component {
   };
 
   handleClick = () => {
-    if (this.state.todo.length === 0) {
+    if (this.state.todo.trim().length === 0) {
       return;
     }
     const todo_item = { todo: this.state.todo, id: new Date().getTime() };
 
-    // this.setState((state) => {
-    //   return { todo_arr: state.todo_arr.concat(todo_item), todo: "" };
-    // });
     this.setState((state) => {
-      return { todo_arr: [...state.todo_arr, todo_item], todo: "" };
+      return { todo_arr: state.todo_arr.concat(todo_item), todo: "" };
     });
+    // this.setState((state) => {
+    //   return { todo_arr: [...state.todo_arr, todo_item], todo: "" };
+    // });
   };
 
   handleDelete = (id) => {
@@ -44,17 +43,12 @@ export class Todo extends React.Component {
     this.setState({ todo_arr: newA });
   };
 
-  // handleEdit = (id) => {
-  //   const edited=this.state.todo_arr.map((todo)=> {
-  //     if(todo.id === id) {
-  //       return this
-  //     }
-  //   })
-  // };
-
-  edit = () => {
-    this.setState((state) => ({ edit: !state.edit }));
-    console.log(this.state.edit);
+  edit = (id) => {
+    this.setState((state) => {
+      return state.todo_arr.map((item) => {
+        return item.id === id && (item.todo = "done");
+      });
+    });
   };
 
   render() {
@@ -68,11 +62,11 @@ export class Todo extends React.Component {
         />
         <button onClick={this.handleClick}>Add Todo</button>
         <TodoItems
-          hanedit={this.handleEdit}
           sot={this.state}
           edit={this.edit}
           todo={this.state.todo_arr}
           del={this.handleDelete}
+          newInp={this.handleChange}
         />
       </div>
     );
