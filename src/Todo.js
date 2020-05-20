@@ -55,15 +55,6 @@ export class Todo extends React.Component {
     // });
   };
 
-  handleBlur = (e) => {
-    console.log(e.target.value);
-    // this.setState((state) => {
-    //   return state.todo_arr.map((item) => {
-    //     return item.id === state.editId && (item.todo = state.editedText);
-    //   });
-    // });
-  };
-
   handleUpdate = (e) => {
     this.setState((state) => {
       return state.todo_arr.map((item) => {
@@ -82,7 +73,6 @@ export class Todo extends React.Component {
             <input
               value={this.state.editedText}
               onChange={this.handleEditChange}
-              onInput={this.handleBlur}
             />
             <button onClick={this.handleUpdate}>Update</button>
           </div>
