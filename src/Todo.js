@@ -1,6 +1,6 @@
 import React from "react";
 import { TodoItems } from "./TodoItems.js";
-import "./App.css";
+import "./Todo.css";
 
 export class Todo extends React.Component {
   state = {
@@ -66,8 +66,8 @@ export class Todo extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>TODO</h1>
+      <div className="container">
+        <h1>React-Todo</h1>
         {this.state.edit ? (
           <div>
             <input
@@ -79,12 +79,15 @@ export class Todo extends React.Component {
         ) : (
           ""
         )}
-        <input
-          value={this.state.edit ? "" : this.state.todo}
-          placeholder="Search"
-          onChange={this.handleChange}
-        />
-        <button onClick={this.handleClick}>Add Todo</button>
+        <div>
+          <input
+            value={this.state.edit ? "" : this.state.todo}
+            placeholder="Enter Todo"
+            onChange={this.handleChange}
+          />
+          <button onClick={this.handleClick}>Add Todo</button>
+        </div>
+
         <TodoItems
           todo={this.state.todo_arr}
           del={this.handleDelete}

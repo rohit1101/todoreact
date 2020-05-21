@@ -7,7 +7,7 @@ export function TodoItems({ todo, del, editHandler }) {
       <div>
         {todo.map((item) => {
           return (
-            <div key={i++}>
+            <div key={i++} className="Todo">
               <p id={item.id}>
                 {item.todo} created at {new Date(item.id).toLocaleTimeString()}
                 <i
