@@ -79,7 +79,7 @@ export class Todo extends React.Component {
         ) : (
           ""
         )}
-        <div>
+        <div className="inp-el">
           <input
             value={this.state.edit ? "" : this.state.todo}
             placeholder="Enter Todo"
