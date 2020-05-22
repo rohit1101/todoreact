@@ -62,6 +62,6 @@ input {
   font-size: 1.8rem;
 }
 
-/* input:focus {
+input:focus {
   border: none;
-} */
+}
