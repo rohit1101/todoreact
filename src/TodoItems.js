@@ -1,25 +1,12 @@
 import React from "react";
+import { Item } from "./Item";
 
-export function TodoItems({ todo, del, editHandler }) {
+export function TodoItems({ todo, del, update }) {
   let i = 0;
   return (
     <div className={todo.length !== 0 ? "todo-con" : ""}>
       {todo.map((item) => {
-        return (
-          <div key={i++} className="Todo">
-            <p id={item.id}>
-              {item.todo} created at {new Date(item.id).toLocaleTimeString()}
-              <i
-                className="fas fa-edit"
-                onClick={(e) => editHandler(item.todo, item.id)}
-              />
-              <i
-                className="fas fa-trash-alt"
-                onClick={(e) => del(item.id, item.todo)}
-              />
-            </p>
-          </div>
-        );
+        return <Item key={i++} item={item} del={del} update={update} />;
       })}
     </div>
   );

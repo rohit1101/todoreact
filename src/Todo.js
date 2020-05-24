@@ -5,18 +5,11 @@ import "./Todo.css";
 export class Todo extends React.Component {
   state = {
     todo: "",
-    todo_arr: [],
-    edit: false,
-    editID: "",
-    editedText: "",
+    todo_arr: JSON.parse(localStorage.getItem("todo_arr")) || [],
   };
-
+  // [{},{}]
   handleChange = (e) => {
     this.setState({ todo: e.target.value });
-  };
-
-  handleEditChange = (e) => {
-    this.setState({ editedText: e.target.value });
   };
 
   handleClick = () => {
@@ -45,43 +38,46 @@ export class Todo extends React.Component {
     this.setState({ todo_arr: newA });
   };
 
-  edit = (item, id) => {
-    this.setState({ edit: !this.state.edit });
-    this.setState({ editedText: item, editID: id });
-    // this.setState((state) => {
-    //   return state.todo_arr.map((item) => {
-    //     return item.id === id ? (item.todo: editedText) : "";
-    //   });
-    // });
+  handleUpdate = (id, text) => {
+    this.setState((state) => {
+      //       const items = [...this.state.todo_arr]
+      // const newItems = items.map(item => {
+      //     if (item.id === id){ item.todo = text }
+      //     return item
+      // })
+      // this.setState({
+      //   items: newItems
+      // })
+      const newState = state.todo_arr.map((item) => {
+        const newItem = { ...item };
+        if (newItem.id === id) {
+          newItem.todo = text;
+        }
+        return newItem;
+      });
+
+      console.log(newState);
+      return {
+        todo_arr: newState,
+      };
+    });
   };
 
-  handleUpdate = (e) => {
-    this.setState((state) => {
-      return state.todo_arr.map((item) => {
-        return item.id === state.editID && (item.todo = state.editedText);
-      });
-    });
-    this.setState({ edit: false });
-  };
+  componentDidUpdate(props, prevState) {
+    if (prevState.todo_arr !== this.state.todo_arr) {
+      localStorage.setItem("todo_arr", JSON.stringify(this.state.todo_arr));
+    }
+    console.log("re-rendering..");
+  }
 
   render() {
     return (
       <div className="container">
         <h1>React-Todo</h1>
-        {this.state.edit ? (
-          <div>
-            <input
-              value={this.state.editedText}
-              onChange={this.handleEditChange}
-            />
-            <button onClick={this.handleUpdate}>Update</button>
-          </div>
-        ) : (
-          ""
-        )}
+
         <div className="inp-el">
           <input
-            value={this.state.edit ? "" : this.state.todo}
+            value={this.state.todo}
             placeholder="Enter Todo"
             onChange={this.handleChange}
           />
@@ -89,9 +85,9 @@ export class Todo extends React.Component {
         </div>
 
         <TodoItems
+          update={this.handleUpdate}
           todo={this.state.todo_arr}
           del={this.handleDelete}
-          editHandler={this.edit}
         />
       </div>
     );
