@@ -1,1 +1,1 @@
-Todo App With React (No firebase integration)
+Todo App With React with Firebase integration 🔥
